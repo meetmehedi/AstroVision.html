@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AstroVision - AI-Powered Space Data Explorer</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#1E3D59',
+secondary: '#57B5E7'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.chart-container { min-height: 300px; }
+.gradient-bg {
+background: linear-gradient(135deg, #1E3D59 0%, #57B5E7 100%);
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<header class="gradient-bg text-white">
+<nav class="container mx-auto px-6 py-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-16">
+<a href="#" class="flex items-center space-x-2">
+  <div class="w-10 h-10 flex items-center justify-center bg-white rounded-full">
+    <i class="ri-rocket-2-fill text-2xl text-primary"></i>
+  </div>
+  <span class="text-3xl font-['Pacifico'] text-white">AstroVision</span>
+</a>
+<div class="hidden md:flex space-x-8">
+<a href="#" class="hover:text-gray-200">Dashboard</a>
+<a href="#" class="hover:text-gray-200">Data Analysis</a>
+<a href="#" class="hover:text-gray-200">Visualizations</a>
+<a href="#" class="hover:text-gray-200">Chat Assistant</a>
+</div>
+</div>
+<div class="flex items-center space-x-6">
+<div class="relative">
+<input type="text" placeholder="Search datasets..." class="w-64 px-4 py-2 rounded-full text-gray-900 text-sm focus:outline-none">
+<button class="absolute right-3 top-2.5">
+<i class="ri-search-line text-gray-500"></i>
+</button>
+</div>
+<button class="w-10 h-10 flex items-center justify-center">
+<i class="ri-notification-3-line text-xl"></i>
+</button>
+<button class="w-10 h-10 flex items-center justify-center">
+<i class="ri-user-3-line text-xl"></i>
+</button>
+</div>
+</div>
+</nav>
+</header>
+<main class="container mx-auto px-6 py-8">
+<section class="mb-12">
+<div class="flex items-center justify-between mb-8">
+<h1 class="text-4xl font-bold text-gray-900">Welcome to AstroVision</h1>
+<div class="flex space-x-4">
+<button class="bg-primary text-white px-6 py-2 !rounded-button flex items-center space-x-2 whitespace-nowrap">
+<i class="ri-upload-cloud-line"></i>
+<span>Upload Data</span>
+</button>
+<button class="bg-secondary text-white px-6 py-2 !rounded-button flex items-center space-x-2 whitespace-nowrap">
+<i class="ri-rocket-line"></i>
+<span>Start Analysis</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+<div class="bg-white p-6 rounded-lg shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-semibold text-gray-700">Active Datasets</h3>
+<span class="w-10 h-10 flex items-center justify-center bg-blue-100 rounded-full">
+<i class="ri-database-2-line text-blue-600"></i>
+</span>
+</div>
+<p class="text-3xl font-bold text-gray-900">247</p>
+<p class="text-sm text-gray-500">+12% from last month</p>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-semibold text-gray-700">Running Analyses</h3>
+<span class="w-10 h-10 flex items-center justify-center bg-green-100 rounded-full">
+<i class="ri-line-chart-line text-green-600"></i>
+</span>
+</div>
+<p class="text-3xl font-bold text-gray-900">18</p>
+<p class="text-sm text-gray-500">Currently processing</p>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-semibold text-gray-700">AI Insights</h3>
+<span class="w-10 h-10 flex items-center justify-center bg-purple-100 rounded-full">
+<i class="ri-brain-line text-purple-600"></i>
+</span>
+</div>
+<p class="text-3xl font-bold text-gray-900">1,893</p>
+<p class="text-sm text-gray-500">Generated this week</p>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-semibold text-gray-700">Data Storage</h3>
+<span class="w-10 h-10 flex items-center justify-center bg-yellow-100 rounded-full">
+<i class="ri-hard-drive-line text-yellow-600"></i>
+</span>
+</div>
+<p class="text-3xl font-bold text-gray-900">4.2 TB</p>
+<p class="text-sm text-gray-500">78% capacity used</p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-xl font-semibold text-gray-900">Space Data Analysis</h2>
+<div class="flex items-center space-x-2">
+<button class="px-3 py-1 text-sm text-gray-600 bg-gray-100 !rounded-button whitespace-nowrap">Last 7 days</button>
+<button class="px-3 py-1 text-sm text-gray-600 bg-gray-100 !rounded-button whitespace-nowrap">Last 30 days</button>
+<button class="px-3 py-1 text-sm text-white bg-primary !rounded-button whitespace-nowrap">All time</button>
+</div>
+</div>
+<div id="analysisChart" class="chart-container"></div>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm">
+<h2 class="text-xl font-semibold text-gray-900 mb-6">Recent Activities</h2>
+<div class="space-y-4">
+<div class="flex items-start space-x-4">
+<span class="w-8 h-8 flex items-center justify-center bg-blue-100 rounded-full flex-shrink-0">
+<i class="ri-file-search-line text-blue-600"></i>
+</span>
+<div>
+<p class="text-sm font-medium text-gray-900">Mars Surface Analysis Complete</p>
+<p class="text-xs text-gray-500">2 hours ago</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<span class="w-8 h-8 flex items-center justify-center bg-green-100 rounded-full flex-shrink-0">
+<i class="ri-upload-cloud-line text-green-600"></i>
+</span>
+<div>
+<p class="text-sm font-medium text-gray-900">New Dataset Uploaded</p>
+<p class="text-xs text-gray-500">4 hours ago</p>
+</div>
+</div>
+<div class="flex items-start space-x-4">
+<span class="w-8 h-8 flex items-center justify-center bg-purple-100 rounded-full flex-shrink-0">
+<i class="ri-robot-line text-purple-600"></i>
+</span>
+<div>
+<p class="text-sm font-medium text-gray-900">AI Model Training Started</p>
+<p class="text-xs text-gray-500">6 hours ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="mb-12">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-2xl font-bold text-gray-900">Latest Discoveries</h2>
+<button class="text-primary hover:text-primary/80">View all</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="bg-white rounded-lg shadow-sm overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/4597b794434d8a71cc5d38f3b0fb26dd.jpg" class="w-full h-48 object-cover" alt="Discovery 1">
+<div class="p-6">
+<h3 class="text-lg font-semibold text-gray-900 mb-2">New Exoplanet Discovery</h3>
+<p class="text-gray-600 text-sm mb-4">AI analysis reveals potential habitable conditions on newly discovered exoplanet HD-789542b.</p>
+<div class="flex items-center justify-between">
+<span class="text-sm text-gray-500">March 1, 2025</span>
+<button class="text-primary hover:text-primary/80">Read more</button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/471db677775356e5ee6e198796ceb499.jpg" class="w-full h-48 object-cover" alt="Discovery 2">
+<div class="p-6">
+<h3 class="text-lg font-semibold text-gray-900 mb-2">Asteroid Composition Study</h3>
+<p class="text-gray-600 text-sm mb-4">Machine learning models identify rare earth elements in asteroid 2024-XR3.</p>
+<div class="flex items-center justify-between">
+<span class="text-sm text-gray-500">February 28, 2025</span>
+<button class="text-primary hover:text-primary/80">Read more</button>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/e4f4292f1d1099e46fa215e3ecefb5d0.jpg" class="w-full h-48 object-cover" alt="Discovery 3">
+<div class="p-6">
+<h3 class="text-lg font-semibold text-gray-900 mb-2">Solar Flare Prediction</h3>
+<p class="text-gray-600 text-sm mb-4">AI successfully predicts major solar flare events with 94% accuracy.</p>
+<div class="flex items-center justify-between">
+<span class="text-sm text-gray-500">February 27, 2025</span>
+<button class="text-primary hover:text-primary/80">Read more</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-gray-900 text-white py-12">
+<div class="container mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div>
+<div class="flex items-center space-x-2">
+  <div class="w-8 h-8 flex items-center justify-center bg-white rounded-full">
+    <i class="ri-rocket-2-fill text-xl text-primary"></i>
+  </div>
+  <h3 class="text-xl font-['Pacifico']">AstroVision</h3>
+</div>
+<p class="text-gray-400 text-sm">Empowering space research with advanced AI and data visualization tools.</p>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">Products</h4>
+<ul class="space-y-2 text-gray-400">
+<li><a href="#" class="hover:text-white">Data Analysis</a></li>
+<li><a href="#" class="hover:text-white">Visualizations</a></li>
+<li><a href="#" class="hover:text-white">AI Assistant</a></li>
+<li><a href="#" class="hover:text-white">API Access</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">Resources</h4>
+<ul class="space-y-2 text-gray-400">
+<li><a href="#" class="hover:text-white">Documentation</a></li>
+<li><a href="#" class="hover:text-white">Research Papers</a></li>
+<li><a href="#" class="hover:text-white">Case Studies</a></li>
+<li><a href="#" class="hover:text-white">Blog</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">Connect</h4>
+<ul class="space-y-2 text-gray-400">
+<li><a href="#" class="hover:text-white">Twitter</a></li>
+<li><a href="#" class="hover:text-white">LinkedIn</a></li>
+<li><a href="#" class="hover:text-white">GitHub</a></li>
+<li><a href="#" class="hover:text-white">Contact</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-400 text-sm">© 2025 AstroVision. All rights reserved.</p>
+<div class="flex space-x-6 mt-4 md:mt-0">
+<a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a>
+<a href="#" class="text-gray-400 hover:text-white">Terms of Service</a>
+<a href="#" class="text-gray-400 hover:text-white">Cookie Policy</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+const analysisChart = echarts.init(document.getElementById('analysisChart'));
+const option = {
+animation: false,
+tooltip: {
+trigger: 'axis',
+backgroundColor: 'rgba(255, 255, 255, 0.9)',
+textStyle: {
+color: '#1f2937'
+}
+},
+grid: {
+top: 10,
+right: 10,
+bottom: 20,
+left: 40
+},
+xAxis: {
+type: 'category',
+data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+axisLine: {
+lineStyle: {
+color: '#e5e7eb'
+}
+},
+axisLabel: {
+color: '#1f2937'
+}
+},
+yAxis: {
+type: 'value',
+axisLine: {
+lineStyle: {
+color: '#e5e7eb'
+}
+},
+axisLabel: {
+color: '#1f2937'
+},
+splitLine: {
+lineStyle: {
+color: '#e5e7eb'
+}
+}
+},
+series: [
+{
+name: 'Datasets Analyzed',
+type: 'line',
+smooth: true,
+data: [150, 230, 224, 218, 135, 147, 260],
+lineStyle: {
+color: 'rgba(87, 181, 231, 1)'
+},
+areaStyle: {
+color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+{
+offset: 0,
+color: 'rgba(87, 181, 231, 0.3)'
+},
+{
+offset: 1,
+color: 'rgba(87, 181, 231, 0.1)'
+}
+])
+},
+symbol: 'none'
+}
+]
+};
+analysisChart.setOption(option);
+window.addEventListener('resize', () => {
+analysisChart.resize();
+});
+</script>
+</body>
+</html>
